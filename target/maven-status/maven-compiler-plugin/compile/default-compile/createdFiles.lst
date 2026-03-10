@@ -1,2 +1,8 @@
+com/codewithneil/store/security/JwtUtil.class
 com/codewithneil/store/StoreApplication.class
+com/codewithneil/store/repositories/UserRepository.class
 com/codewithneil/store/controllers/HomeController.class
+com/codewithneil/store/models/User.class
+com/codewithneil/store/config/SecurityConfig.class
+com/codewithneil/store/controllers/AuthController.class
+com/codewithneil/store/services/AuthService.class
