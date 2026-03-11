@@ -14,13 +14,16 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/login")
-    public Map<String, String> login(@RequestBody Map<String, String> body) {
+    public Map<String, String> login(@RequestBody LoginRequest request) {
 
-        String email = body.get("email");
-        String password = body.get("password");
+        String token = authService.login(
+                request.getEmail(),
+                request.getPassword()
+        );
 
-        String token = authService.login(email, password);
-
-        return Map.of("token", token);
+        return Map.of(
+                "status", "success",
+                "token", token
+        );
     }
 }
