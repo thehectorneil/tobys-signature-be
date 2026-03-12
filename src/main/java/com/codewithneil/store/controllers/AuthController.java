@@ -4,6 +4,8 @@ import com.codewithneil.store.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import com.codewithneil.store.dto.LoginRequest;
+
 import java.util.Map;
 
 @RestController
