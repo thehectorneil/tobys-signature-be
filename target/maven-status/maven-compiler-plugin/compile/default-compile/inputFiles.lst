@@ -1,0 +1,11 @@
+/Users/novieligo/Documents/neil-projects/tobys-signature-be/src/main/java/com/codewithneil/store/StoreApplication.java
+/Users/novieligo/Documents/neil-projects/tobys-signature-be/src/main/java/com/codewithneil/store/controllers/AuthController.java
+/Users/novieligo/Documents/neil-projects/tobys-signature-be/src/main/java/com/codewithneil/store/controllers/HomeController.java
+/Users/novieligo/Documents/neil-projects/tobys-signature-be/src/main/java/com/codewithneil/store/dto/LoginRequest.java
+/Users/novieligo/Documents/neil-projects/tobys-signature-be/src/main/java/com/codewithneil/store/exceptions/GlobalExceptionHandler.java
+/Users/novieligo/Documents/neil-projects/tobys-signature-be/src/main/java/com/codewithneil/store/exceptions/InvalidCredentialsException.java
+/Users/novieligo/Documents/neil-projects/tobys-signature-be/src/main/java/com/codewithneil/store/models/User.java
+/Users/novieligo/Documents/neil-projects/tobys-signature-be/src/main/java/com/codewithneil/store/repositories/UserRepository.java
+/Users/novieligo/Documents/neil-projects/tobys-signature-be/src/main/java/com/codewithneil/store/security/JwtUtil.java
+/Users/novieligo/Documents/neil-projects/tobys-signature-be/src/main/java/com/codewithneil/store/security/SecurityConfig.java
+/Users/novieligo/Documents/neil-projects/tobys-signature-be/src/main/java/com/codewithneil/store/services/AuthService.java

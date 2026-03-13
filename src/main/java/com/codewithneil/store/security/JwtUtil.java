@@ -22,10 +22,13 @@ public class JwtUtil {
 
     public String generateToken(String email) {
 
+        Date now = new Date();
+        Date expiry = new Date(now.getTime() + 1000 * 60 * 30); // 30 minutes
+
         return Jwts.builder()
                 .setSubject(email)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 86400000))
+                .setIssuedAt(now)
+                .setExpiration(expiry)
                 .signWith(getKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
