@@ -34,7 +34,7 @@ public class SecurityConfig {
 
         configuration.setAllowedOriginPatterns(List.of(
             "http://localhost:*",
-            "https://tobys-signature-fe.vercel.app",
+            "https://tobys-signature-fe-a91j.vercel.app",
             "https://tobys-signature.com"
         ));
 
