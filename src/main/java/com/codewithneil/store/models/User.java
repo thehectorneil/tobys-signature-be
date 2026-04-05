@@ -2,6 +2,7 @@ package com.codewithneil.store.models;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -21,8 +22,32 @@ public class User {
     @Column(nullable = false)
     private String phone;
 
-    @Column(nullable = false)
-    private String role;
+    // 🔹 NAME FIELDS
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
+
+    @Column(name = "middle_name")
+    private String middleName;
+
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
+
+    // 🔹 ROLE RELATION (FK)
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+    // 🔹 BRANCH RELATION (FK)
+    @ManyToOne
+    @JoinColumn(name = "branch_id")
+    private Branch branch;
+
+    // 🔹 ACCESS RELATION (permissions)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<UserAccess> userAccesses;
+
+    @Column(name = "is_active")
+    private Boolean isActive = true;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -33,6 +58,10 @@ public class User {
     protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
+
+    // =====================
+    // GETTERS
+    // =====================
 
     public UUID getId() {
         return id;
@@ -50,13 +79,41 @@ public class User {
         return phone;
     }
 
-    public String getRole() {
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public Role getRole() {
         return role;
+    }
+
+    public Branch getBranch() {
+        return branch;
+    }
+
+    public List<UserAccess> getUserAccesses() {
+        return userAccesses;
+    }
+
+    public Boolean getIsActive() {
+        return isActive;
     }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
+    // =====================
+    // SETTERS
+    // =====================
 
     public void setEmail(String email) {
         this.email = email;
@@ -70,8 +127,35 @@ public class User {
         this.phone = phone;
     }
 
-    public void setRole(String role) {
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setRole(Role role) {
         this.role = role;
     }
 
+    public void setBranch(Branch branch) {
+        this.branch = branch;
+    }
+
+    public void setUserAccesses(List<UserAccess> userAccesses) {
+        this.userAccesses = userAccesses;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+    
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 }

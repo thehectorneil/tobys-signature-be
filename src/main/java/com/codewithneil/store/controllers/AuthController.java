@@ -15,16 +15,34 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @PostMapping("/login")
-    public Map<String, String> login(@RequestBody LoginRequest request) {
+    // 🔹 CUSTOMER LOGIN
+    @PostMapping("/customer/login")
+    public Map<String, String> customerLogin(@RequestBody LoginRequest request) {
 
-        String token = authService.login(
+        String token = authService.customerLogin(
                 request.getEmail(),
                 request.getPassword()
         );
 
         return Map.of(
                 "status", "success",
+                "type", "customer",
+                "token", token
+        );
+    }
+
+    // 🔹 STAFF LOGIN (ADMIN + EMPLOYEE)
+    @PostMapping("/staff/login")
+    public Map<String, String> staffLogin(@RequestBody LoginRequest request) {
+
+        String token = authService.staffLogin(
+                request.getEmail(),
+                request.getPassword()
+        );
+
+        return Map.of(
+                "status", "success",
+                "type", "staff",
                 "token", token
         );
     }
