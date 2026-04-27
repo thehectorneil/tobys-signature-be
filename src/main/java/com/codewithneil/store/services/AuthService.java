@@ -3,13 +3,14 @@ package com.codewithneil.store.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.codewithneil.store.dto.AuthResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.codewithneil.store.exceptions.InvalidCredentialsException;
 import com.codewithneil.store.models.User;
-import com.codewithneil.store.models.UserAccess;
 import com.codewithneil.store.repositories.UserRepository;
 import com.codewithneil.store.security.JwtUtil;
 
@@ -24,28 +25,10 @@ public class AuthService {
 
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-    // 🔹 CUSTOMER LOGIN
-    public String customerLogin(String email, String password) {
-
-        User user = userRepository
-                .findByEmail(email)
-                .orElseThrow(InvalidCredentialsException::new);
-
-        if (!"CUSTOMER".equals(user.getRole().getName())) {
-            throw new InvalidCredentialsException();
-        }
-
-        validatePassword(password, user.getPasswordHash());
-
-        return jwtUtil.generateToken(
-                user.getEmail(),
-                user.getRole().getName(),
-                null // no access needed
-        );
-    }
-
-    // 🔹 STAFF LOGIN (ADMIN + EMPLOYEE)
-    public String staffLogin(String email, String password) {
+    /* =========================
+       CUSTOMER LOGIN
+    ========================= */
+    public AuthResponse customerLogin(String email, String password) {
 
         User user = userRepository
                 .findByEmail(email)
@@ -53,26 +36,56 @@ public class AuthService {
 
         String role = user.getRole().getName();
 
-        if (!"ADMIN".equals(role) && !"EMPLOYEE".equals(role)) {
+        if (!"CUSTOMER".equals(role)) {
             throw new InvalidCredentialsException();
         }
 
         validatePassword(password, user.getPasswordHash());
 
-        // 🔥 get system access
+        String token = jwtUtil.generateToken(
+                user.getEmail(),
+                role,
+                null // no access needed
+        );
+
+        return new AuthResponse(token, role); // 🔥 RETURN ROLE
+    }
+
+    /* =========================
+       STAFF LOGIN (ADMIN + STAFF)
+    ========================= */
+    public AuthResponse staffLogin(String email, String password) {
+
+        User user = userRepository
+                .findByEmail(email)
+                .orElseThrow(InvalidCredentialsException::new);
+
+        String role = user.getRole().getName();
+
+        if (!"ADMIN".equals(role) && !"STAFF".equals(role)) {
+            throw new InvalidCredentialsException();
+        }
+
+        validatePassword(password, user.getPasswordHash());
+
+        // 🔥 SYSTEM ACCESS
         List<String> accessList = user.getUserAccesses()
                 .stream()
                 .map(ua -> ua.getAccess().getCode())
                 .collect(Collectors.toList());
 
-        return jwtUtil.generateToken(
+        String token = jwtUtil.generateToken(
                 user.getEmail(),
                 role,
                 accessList
         );
+
+        return new AuthResponse(token, role); // 🔥 RETURN ROLE
     }
 
-    // 🔹 SHARED PASSWORD VALIDATION
+    /* =========================
+       PASSWORD VALIDATION
+    ========================= */
     private void validatePassword(String raw, String hash) {
         if (!encoder.matches(raw, hash)) {
             throw new InvalidCredentialsException();

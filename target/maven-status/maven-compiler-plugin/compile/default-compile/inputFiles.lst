@@ -2,6 +2,7 @@
 /Users/novieligo/Documents/neil-projects/tobys-signature-be/src/main/java/com/codewithneil/store/config/WebConfig.java
 /Users/novieligo/Documents/neil-projects/tobys-signature-be/src/main/java/com/codewithneil/store/controllers/AuthController.java
 /Users/novieligo/Documents/neil-projects/tobys-signature-be/src/main/java/com/codewithneil/store/controllers/HomeController.java
+/Users/novieligo/Documents/neil-projects/tobys-signature-be/src/main/java/com/codewithneil/store/dto/AuthResponse.java
 /Users/novieligo/Documents/neil-projects/tobys-signature-be/src/main/java/com/codewithneil/store/dto/LoginRequest.java
 /Users/novieligo/Documents/neil-projects/tobys-signature-be/src/main/java/com/codewithneil/store/exceptions/GlobalExceptionHandler.java
 /Users/novieligo/Documents/neil-projects/tobys-signature-be/src/main/java/com/codewithneil/store/exceptions/InvalidCredentialsException.java

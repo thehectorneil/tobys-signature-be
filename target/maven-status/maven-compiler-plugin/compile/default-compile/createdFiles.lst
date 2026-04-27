@@ -1,5 +1,6 @@
 com/codewithneil/store/security/JwtUtil.class
 com/codewithneil/store/models/UserAccess.class
+com/codewithneil/store/dto/AuthResponse.class
 com/codewithneil/store/repositories/UserRepository.class
 com/codewithneil/store/controllers/HomeController.class
 com/codewithneil/store/dto/LoginRequest.class
