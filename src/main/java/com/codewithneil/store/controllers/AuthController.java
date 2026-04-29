@@ -20,7 +20,7 @@ public class AuthController {
     @PostMapping("/customer/login")
     public Map<String, String> customerLogin(@RequestBody LoginRequest request) {
 
-        AuthResponse response = authService.staffLogin(
+        AuthResponse response = authService.customerLogin(
         request.getEmail(),
         request.getPassword()
         );

@@ -14,6 +14,9 @@ import com.codewithneil.store.models.User;
 import com.codewithneil.store.repositories.UserRepository;
 import com.codewithneil.store.security.JwtUtil;
 
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
+
 @Service
 public class AuthService {
 
@@ -37,7 +40,7 @@ public class AuthService {
         String role = user.getRole().getName();
 
         if (!"CUSTOMER".equals(role)) {
-            throw new InvalidCredentialsException();
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials");
         }
 
         validatePassword(password, user.getPasswordHash());
@@ -63,7 +66,7 @@ public class AuthService {
         String role = user.getRole().getName();
 
         if (!"ADMIN".equals(role) && !"STAFF".equals(role)) {
-            throw new InvalidCredentialsException();
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials");
         }
 
         validatePassword(password, user.getPasswordHash());
